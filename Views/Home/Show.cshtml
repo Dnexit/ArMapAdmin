@@ -1,18 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Show";
+    
 }
-<h1>@ViewData["Show"]</h1>
 
-<h1>Список моделей</h1>
+<h1> @ViewData["Show"]</h1>
+
+<body style="background-color:#E2CFC9"></body>
+
+<h1 style="color:#64433C;">Список моделей</h1>
 <div>
     <p>
         <input id="id" , type="text" hidden="hidden"/>
     </p>
-    <p>
+    <p style="color:#64433C;">
         Название:<br />
         <input id="name", type="text" />
     </p>
-    <p>
+    <p style="color:#64433C;">
         Описание:<br />
         <input id="description" type="text" />
     </p>
@@ -24,15 +28,15 @@
         y:<br />
         <input id="y" type="number" />
     </p>
-    <p>
+    <p style="color:#64433C;">
         Цвет:<br />
         <input id="color" type="text" />
     </p>
-    <p>
+    <p style="color:#64433C;">
         Модель:<br />
         <input id="model" type="text" />
     </p>
-    <p>
+    <p style="color:#64433C;">
         Картинка:<br />
         <input id="image" type="text" />
     </p>
@@ -42,7 +46,7 @@
     </p>
 </div>
 <table>
-    <thead><tr><th>Id</th><th>Название</th><th>Описание</th><th>Координаты</th><th></th></tr></thead>
+    <thead style="color:#64433C;"><tr><th>Id</th><th>Название</th><th>Описание</th><th>Координаты</th><th></th></tr></thead>
     <tbody>
     </tbody>
 </table>
