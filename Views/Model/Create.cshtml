@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+<h1>@ViewData["Create"]</h1>
+
+<form id="add-form" method="post" action="/api/model" enctype="application/x-www-form-urlencoded">
+    <input type="text" id="name", name="name"><br/>
+    <input type="text" id="description" , name="description"><br />
+    <input type="number" id="x" , name="x"><br />
+    <input type="number" id="y" , name="y"><br />
+    <input type="text" id="modelURL" , name="modelURL"><br />
+    <input type="text" id="imageURL" , name="imageURL"><br />
+    <input type="submit" value="Submit">
+</form>

@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+<h1>@ViewData["Create"]</h1>
+
+<form id="add-form" method="post" action="/api/model" enctype="application/x-www-form-urlencoded">
+    <input type="text" id="name", name="name"><br/>
+    <input type="text" id="description" , name="description"><br />
+    <input type="number" id="x" , name="x"><br />
+    <input type="number" id="y" , name="y"><br />
+    <input type="text" id="modelURL" , name="modelURL"><br />
+    <input type="text" id="imageURL" , name="imageURL"><br />
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    //document.querySelector("#submit").onclick = sendData();
+    function sendData(){
+        fetch('/api/model', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: document.getElementById('name').value,
+                description: document.getElementById('description').value,
+                x: document.getElementById('x').value,
+                y: document.getElementById('y').value,
+                modelURL: document.getElementById('modelURL').value,
+                imageURL: document.getElementById('imageURL').value
+            })
+        }).then(response => response.json())
+          .then(response => console.log(JSON.stringify(response)))
+    }
+</script>
