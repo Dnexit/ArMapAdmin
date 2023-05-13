@@ -91,14 +91,20 @@
         }
     }
     // Добавление пользователя
-    async function createUser(userName, userAge) {
+    async function createUser(model_id, model_name, model_description, model_x, model_y, model_color, model, image) {
 
         const response = await fetch("api/model", {
             method: "POST",
             headers: { "Accept": "application/json", "Content-Type": "application/json" },
             body: JSON.stringify({
-                name: userName,
-                age: parseInt(userAge, 10)
+                id: model_id,
+                name:  model_name,
+                description: model_description,
+                x: model_x,
+                y: model_y,
+                color:  model_color,
+                modelURL: model,
+                imageURL: image
             })
         });
         if (response.ok === true) {
@@ -111,17 +117,24 @@
         }
     }
     // Изменение пользователя
-    async function editUser(userId, userName, userAge) {
-        const response = await fetch("api/model", {
+    async function editUser(model_id, model_name, model_description, model_x, model_y, model_color, model, image) {
+        
+        const response = await fetch(`api/model/${model_id}`, {
             method: "PUT",
             headers: { "Accept": "application/json", "Content-Type": "application/json" },
             body: JSON.stringify({
-                id: userId,
-                name: userName,
-                age: parseInt(userAge, 10)
+                id: model_id,
+                name:  model_name,
+                description: model_description,
+                x: model_x,
+                y: model_y,
+                color:  model_color,
+                modelURL: model,
+                imageURL: image
             })
         });
         if (response.ok === true) {
+
             const user = await response.json();
             document.querySelector(`tr[data-rowid='${user.id}']`).replaceWith(row(user));
         }
@@ -129,10 +142,12 @@
             const error = await response.json();
             console.log(error.message);
         }
+        console.log(response.ok);
     }
+
     // Удаление пользователя
     async function deleteUser(id) {
-        const response = await fetch(`/api/users/${id}`, {
+        const response = await fetch(`/api/model/${id}`, {
             method: "DELETE",
             headers: { "Accept": "application/json" }
         });
@@ -148,9 +163,14 @@
 
     // сброс данных формы после отправки
     function reset() {
-        document.getElementById("userId").value =
-            document.getElementById("userName").value =
-            document.getElementById("userAge").value = "";
+        document.getElementById("id").value =
+            document.getElementById("name").value =
+            document.getElementById("description").value =
+            document.getElementById("x").value = 
+            document.getElementById("y").value = 
+            document.getElementById("color").value =
+            document.getElementById("model").value =
+            document.getElementById("image").value = "";
     }
     // создание строки для таблицы
     function row(model) {
@@ -183,9 +203,9 @@
 
         const removeLink = document.createElement("button");
         removeLink.append("Удалить");
-        removeLink.addEventListener("click", async () => await deleteUser(model.id));
-
+        removeLink.addEventListener("click", async() => await deleteUser(model.id));
         linksTd.append(removeLink);
+
         tr.appendChild(linksTd);
 
         return tr;
@@ -196,13 +216,22 @@
     // отправка формы
     document.getElementById("saveBtn").addEventListener("click", async () => {
 
-        const id = document.getElementById("userId").value;
-        const name = document.getElementById("userName").value;
-        const age = document.getElementById("userAge").value;
+        const id = document.getElementById("id").value;
+        const name = document.getElementById("name").value;
+        const description = document.getElementById("description").value;
+        const x = document.getElementById("x").value;
+        const y = document.getElementById("y").value;
+        const color = document.getElementById("color").value;
+        const modelURL = document.getElementById("model").value;
+        const imageURL = document.getElementById("image").value;
+        
+        console.log(id)
+
         if (id === "")
-            await createUser(name, age);
-        else
-            await editUser(id, name, age);
+            await createUser(id, name, description, x, y, color, modelURL, imageURL);
+        else{
+            await editUser(id, name, description, x, y, color, modelURL, imageURL);
+        }
         reset();
     });
 

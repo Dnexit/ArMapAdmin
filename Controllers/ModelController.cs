@@ -58,7 +58,7 @@ namespace ArMapAdmin.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Model updatedModel)
+        public async Task<IActionResult> Update(string id, [FromBody]Model updatedModel)
         {
             var model = await _modelsService.GetAsync(id);
 
@@ -75,10 +75,10 @@ namespace ArMapAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm]Model newModel)
+        public async Task<IActionResult> Post([FromBody]Model newModel)
         {
-            newModel.id = newModel._id.ToString();
             await _modelsService.CreateAsync(newModel);
+            Console.WriteLine("edit");
             return CreatedAtAction(nameof(Get), new { id = newModel._id }, newModel);
         }
     }

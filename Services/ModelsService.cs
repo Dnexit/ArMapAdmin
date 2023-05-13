@@ -28,10 +28,14 @@ namespace ArMapAdmin.Services
 
         public async Task<Model?> GetAsync(string id) => 
             await _booksCollection.Find(x => x._id.ToString() == id).FirstOrDefaultAsync();
-        
 
-        public async Task CreateAsync(Model newBook) =>
+
+        public async Task CreateAsync(Model newBook)
+        {
             await _booksCollection.InsertOneAsync(newBook);
+            newBook.id = newBook._id.ToString();
+            await UpdateAsync(newBook.id, newBook);
+        }
 
         public async Task UpdateAsync(string id, Model updatedModel) =>
             await _booksCollection.ReplaceOneAsync(x => x._id.ToString() == id, updatedModel);

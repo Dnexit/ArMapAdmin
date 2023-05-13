@@ -23,8 +23,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-Console.WriteLine("STARTED");
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -35,6 +33,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Show}/{id?}");
 
 app.Run();
